@@ -1,0 +1,18 @@
+Components:
+
+Send get request for authentication code
+    View that constructs the request url & parameters
+        Hardcode parameters into request
+            Future development: Create form that allows user to set parameters 
+    Map url to view
+
+Receive authentication code
+    View that parses through post request 
+    Map redirect_uri to view
+
+Exchange authentication code for a token + refresh token capabilities
+    How to store token?
+        https://docs.python.org/2/library/shelve.html
+
+
+
