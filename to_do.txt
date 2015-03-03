@@ -6,11 +6,11 @@ Components:
             Future development: Create form that allows user to set parameters 
     xMap url to view
 
-Receive authentication code
-    View that parses through post request 
-    Map redirect_uri to view
+xReceive authentication code
+    xView that parses through post request 
+    xMap redirect_uri to view
 
-Exchange authentication code for a token + refresh token capabilities
+xExchange authentication code for a token + refresh token capabilities
     How to store token?
         https://docs.python.org/2/library/shelve.html
 
