@@ -41,10 +41,11 @@ def callback(request):
 
     # if not token_request.ok:
     #     raise Http404
-
     token_data = token_request.json()
     if 'error' in token_data:
         return HttpResponse('TOKEN NOT GIVEN')
     else:
         token = token_data['access_token']
-        return HttpResponse(token)
+        refresh_token = token_data['refresh_token']
+        return HttpResponse( "token: {} ++++ refresh token: {}".format(token,refresh_token) )
+
