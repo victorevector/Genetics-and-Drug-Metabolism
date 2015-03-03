@@ -1,10 +1,10 @@
 Components:
 
-Send get request for authentication code
-    View that constructs the request url & parameters
-        Hardcode parameters into request
+ Send get request for authentication code
+    xView that constructs the request url & parameters
+       x Hardcode parameters into request
             Future development: Create form that allows user to set parameters 
-    Map url to view
+    xMap url to view
 
 Receive authentication code
     View that parses through post request 
