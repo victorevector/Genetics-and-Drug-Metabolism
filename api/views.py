@@ -34,19 +34,19 @@ def query_api(request):
     context_dict = {}
     access_token = request.session['token']
 
-    ###Pulls profile names that exist within the same account###
+    ###Pulls profile name_choices that exist within the same account###
     client = _23AndMeClient(access_token)
     user = client.get_names()
     profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
     names_and_id = {}
-    names = []
+    name_choices = []
     for profile in profiles:
         first_name = profile['first_name']
         names_and_id[first_name] = profile['id']
         name = first_name, first_name
-        names.append(name)
+        name_choices.append(name)
     class QueryUserForm(QueryForm):
-        profile_name = forms.ChoiceField(choices = names, required = True)
+        profile_name = forms.ChoiceField(choices = name_choices, required = True)
 
     if request.method == 'POST':
         form = QueryUserForm(request.POST)
