@@ -28,11 +28,15 @@ def callback(request):
     client.get_token(auth_code)
     # # data['rs2395029']
     request.session['token'] = client.access_token
+    request.session.set_expiry(0)
     return redirect('query_api')
 
 def query_api(request):
     context_dict = {}
-    access_token = request.session['token']
+    if 'token' in request.session:
+        access_token = request.session['token']
+    else:
+        return redirect('/api')
 
     ###Pulls profile name_choices that exist within the same account###
     client = _23AndMeClient(access_token)
