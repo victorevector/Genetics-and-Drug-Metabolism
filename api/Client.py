@@ -39,12 +39,9 @@ class _23AndMeClient(object):
 
     def refresh_token(self, refresh_token):
         pass 
-        # use when auth token expires (1 day)
-        # retrieves auth token & refresh token with previously assigned refresh token
-        # returns usable auth token & refresh token
+        #for now, no use case exists for this method in my app.
 
     def _get_resource(self, resource):
-        # this method gets called by other methods, specifically those that request specific pieces of information from the API
         if self.access_token is None:
             raise Exception('access_token cannot be None')
 
@@ -57,10 +54,8 @@ class _23AndMeClient(object):
             response.raise_for_status()
 
     def get_genotype(self,profile_id, locations):
-        # calls _get_resource('') and passes the right arguments to get genotype data (json)
-        # returns basepairs of the given location(s)
-            # e.g. AA, DD, DI, __, --
-        # profile_id = "SP1_MOTHER_V4" #I AM USING THE 
+        # returns basepairs of the given location (RS.....)
+            # e.g. AA, DD, DI, __, -- 
         return self._get_resource('demo/genotypes/{}/?locations={}'.format(profile_id, locations) )
 
     def get_user(self):

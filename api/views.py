@@ -33,42 +33,32 @@ def callback(request):
 def query_api(request):
     context_dict = {}
     access_token = request.session['token']
+
+    ###Pulls profile names that exist within the same account###
+    client = _23AndMeClient(access_token)
+    user = client.get_names()
+    profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
+    names_and_id = {}
+    names = []
+    for profile in profiles:
+        first_name = profile['first_name']
+        names_and_id[first_name] = profile['id']
+        name = first_name, first_name
+        names.append(name)
+    class QueryUserForm(QueryForm):
+        profile_name = forms.ChoiceField(choices = names, required = True)
+
     if request.method == 'POST':
-        c = _23AndMeClient(access_token)
-        user = c.get_names()
-        profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
-        names_and_id = {}
-        names = []
-        for profile in profiles:
-            first_name = profile['first_name']
-            names_and_id[first_name] = profile['id']
-            name = first_name, first_name
-            names.append(name)
-        class QueryUserForm(QueryForm):
-            profile_name = forms.ChoiceField(choices = names, required = True)
         form = QueryUserForm(request.POST)
         if form.is_valid():
             profile_name = form.cleaned_data['profile_name']
             profile_id = names_and_id[profile_name]
-            snp = 'rs2395029' #in future, this will not be hardcoded, but will be a choice for user
-            response = c.get_genotype(profile_id = profile_id, locations = snp )
+            snp = 'rs2395029'
+            response = client.get_genotype(profile_id = profile_id, locations = snp )
             pairs = response[snp]
             context_dict['carrier_status'] = pairs
             return render(request, 'api/results_api.html', context_dict)
     else:
-        c = _23AndMeClient(access_token)   
-        user = c.get_names()
-        profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
-        names_and_id = {}
-        names = []
-        for profile in profiles:
-            first_name = profile['first_name']
-            names_and_id[first_name] = profile['id']
-            name = first_name, first_name
-            names.append(name)
-        class QueryUserForm(QueryForm):
-            profile_name = forms.ChoiceField(choices = names, required = True)
         form = QueryUserForm()
         context_dict['form'] = form
-        # context_dict['token'] = token
         return render(request, 'api/query_api.html', context_dict)
