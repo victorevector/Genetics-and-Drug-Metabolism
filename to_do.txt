@@ -1,18 +1,33 @@
-Components:
-
- Send get request for authentication code
-    xView that constructs the request url & parameters
-       x Hardcode parameters into request
-            Future development: Create form that allows user to set parameters 
-    xMap url to view
-
-xReceive authentication code
-    xView that parses through post request 
-    xMap redirect_uri to view
-
-xExchange authentication code for a token + refresh token capabilities
-    How to store token?
-        https://docs.python.org/2/library/shelve.html
+http://blog.23andme.com/23andme-research/snpwatch/snpwatch-genetic-variation-in-immune-system-marker-may-increase-risk-of-liver-injury-from-common-antibiotic/
+http://www.snpedia.com/index.php/Flucloxacillin
+http://www.snpedia.com/index.php/Rs2395029
 
 
 
+
+Functionalities:
++ability to establish connection with 23andMe API, in accordance with OAUTH2
++ability to request relevant information from API (DEFINE RELEVANT! INFORMATION)
++ability to parse through data and render the proper response for user
+
+
+
+Ive constructed the first draft of my Client. It can successfully create an Oauth2 connection
+
+What i need to work on is the client's ability to request adequate information from the API
+To do:
+Figure out use case and edit client so it streamlines the API get process. I want to engineer the relationship betwen profile and genotype information. For example, each login profile could include multiple users. So I have to figure out a way to ask the client for whom they want to run the 'sensitivity test'. Once that information is specified, I need to match that name with a user id. That user id will be included in the get request's parameters. 
+
+REFACTOR views.INDEX:
+    +Consolidate param data to settings.
+
+
+
+To open a new window in javascript
+    <SCRIPT LANGUAGE="javascript">
+<!--
+window.open ('titlepage.html', 'newwindow', config='height=100,
+width=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,
+location=no, directories=no, status=no')
+-->
+</SCRIPT>

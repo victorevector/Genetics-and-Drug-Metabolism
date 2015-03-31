@@ -1,17 +1,13 @@
-"""
-Django settings for andMe project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
+TEMPLATE_DIRS = [TEMPLATE_PATH]
+
+CLIENT_ID = 'ba2a5b529548f7c541a14887f5b54aa9'
+CLIENT_SECRET = 'f48c6a139ede44f2b453e112cdda979f'
+CALLBACK_URL = 'http://localhost:8000/api/callback/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/

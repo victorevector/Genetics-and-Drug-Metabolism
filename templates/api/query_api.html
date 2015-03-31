@@ -1,0 +1,12 @@
+{% extends 'api/base.html' %}
+
+{% block title %} Find Out {% endblock %}
+
+{% block body %}
+    <form action="{% url "query_api" %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+        <input type="submit" value="Find out" />
+    </form>
+    {{token}}
+{% endblock %}
