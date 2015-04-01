@@ -1,9 +1,21 @@
 {% extends 'api/base.html' %}
 
-{% block title %} Find Out {% endblock %}
+{% block title %} Results {% endblock %}
 
 {% block body %}
     <p>
-        {{carrier_status}}
+        {% if carrier_status == 'GG' %}
+            {{profile_name}}  is a HLA-B*5701 homozygote carrier.
+        {% elif carrier_status == 'GT' %}
+            {{profile_name}}  is a HLA-B*5701 carrier.
+        {% elif carrier_status == 'TG' %}
+            {{profile_name}}  is a HLA-B*5701 carrier.
+        {% elif  carrier_status == 'TT' %}
+            {{profile_name}}  carries a normal variation of {{snp}} and is not a HLA-B*5701 carrier.
+        {% else %}
+            Could not determine at this time
+        {% endif %}
     </p>
+
+    <a href="http://www.snpedia.com/index.php/{{snp}}"> Click here for more information about {{snp}} </a>
 {% endblock %}

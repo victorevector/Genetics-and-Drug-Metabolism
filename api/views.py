@@ -57,10 +57,12 @@ def query_api(request):
         if form.is_valid():
             profile_name = form.cleaned_data['profile_name']
             profile_id = names_and_id[profile_name]
-            snp = 'rs2395029'
+            snp = 'rs2395029' #FUTURE: DONT HARDCODE THIS
             response = client.get_genotype(profile_id = profile_id, locations = snp )
             pairs = response[snp]
             context_dict['carrier_status'] = pairs
+            context_dict['profile_name'] = profile_name
+            context_dict['snp'] = snp
             return render(request, 'api/results_api.html', context_dict)
     else:
         form = QueryUserForm()
