@@ -7,7 +7,7 @@ from andMe.settings import CLIENT_ID, CLIENT_SECRET, CALLBACK_URL
 
 GRANT_TYPE = 'authorization_code'
 SCOPE = 'basic genomes names'
-TOKEN_URL = 'https://api.23andme.com/token/'
+TOKEN_URL = 'https://API.23andme.com/token/'
 BASE_URL = "https://api.23andme.com/1/"
 
 
@@ -51,7 +51,7 @@ class _23AndMeClient(object):
         if response.status_code == 200:
             return response.json()
         else:
-            response.raise_for_status()
+            response.raise_for_status() 
 
     def get_genotype(self,profile_id, locations):
         # returns basepairs of the given location (RS.....)
