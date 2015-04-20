@@ -3,7 +3,6 @@
 # Can the app receive responses from the API?
 
 from django.test import TestCase
-from test_files.testtest import yo
 import responses
 import requests
 import json
