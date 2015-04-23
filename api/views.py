@@ -42,7 +42,7 @@ def query_api(request):
     client = _23AndMeClient(access_token)
     user = client.get_names()
     profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
-    name_choices = []
+    profile_name_choices = []
     for profile in profiles:
         full_name = profile['first_name'] + ' ' + profile['last_name']
         profile_name_choices.append( (profile['id']+'$'+full_name, full_name) )
