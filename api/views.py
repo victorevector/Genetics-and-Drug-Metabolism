@@ -42,21 +42,19 @@ def query_api(request):
     client = _23AndMeClient(access_token)
     user = client.get_names()
     profiles = user['profiles'] #profiles : [ { first_name: ..., last_name: ..., id: ... }, { ..... } ]
-    names_and_id = {}
     name_choices = []
     for profile in profiles:
-        first_name = profile['first_name']
-        names_and_id[first_name] = profile['id']
-        name = first_name, first_name
-        name_choices.append(name)
+        full_name = profile['first_name'] + ' ' + profile['last_name']
+        profile_name_choices.append( (profile['id']+'$'+full_name, full_name) )
     class QueryUserForm(QueryForm):
-        profile_name = forms.ChoiceField(choices = name_choices, required = True)
+        profile_name = forms.ChoiceField(choices = profile_name_choices, required = True)
 
     if request.method == 'POST':
         form = QueryUserForm(request.POST)
         if form.is_valid():
-            profile_name = form.cleaned_data['profile_name']
-            profile_id = names_and_id[profile_name]
+            profile_info = form.cleaned_data['profile_name'].split('$')
+            profile_id, profile_name = profile_info[0], profile_info[1]
+             # snp = form.cleaned_data['drug']
             snp = 'rs2395029' #FUTURE: DONT HARDCODE THIS
             response = client.get_genotype(profile_id = profile_id, locations = snp )
             pairs = response[snp]
