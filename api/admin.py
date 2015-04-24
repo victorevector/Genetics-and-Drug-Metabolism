@@ -1,3 +1,7 @@
 from django.contrib import admin
+from api.models import DrugsAndSNP
 
-# Register your models here.
+class DrugsAdmin(admin.ModelAdmin):
+    list_display = ['drug', 'snp']
+
+admin.site.register(DrugsAndSNP, DrugsAdmin)

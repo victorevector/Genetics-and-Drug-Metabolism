@@ -7,6 +7,7 @@ import requests
 from andMe.settings import CLIENT_ID, CALLBACK_URL
 from api.forms import QueryForm
 from django import forms
+from api.models import DrugsAndSNP
 
 def index(request):
     API_URL = "https://api.23andme.com/authorize"
@@ -54,10 +55,10 @@ def query_api(request):
         if form.is_valid():
             profile_info = form.cleaned_data['profile_name'].split('$')
             profile_id, profile_name = profile_info[0], profile_info[1]
-             # snp = form.cleaned_data['drug']
-            snp = 'rs2395029' #FUTURE: DONT HARDCODE THIS
-            response = client.get_genotype(profile_id = profile_id, locations = snp )
-            pairs = response[snp]
+            drug = form.cleaned_data['drug']
+            snp = DrugsAndSNP.objects.get(drug = drug).snp
+            api_response = client.get_genotype(profile_id = profile_id, locations = snp )
+            pairs = api_response[snp]
             context_dict['carrier_status'] = pairs
             context_dict['profile_name'] = profile_name
             context_dict['snp'] = snp
