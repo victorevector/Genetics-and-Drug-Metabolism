@@ -18,7 +18,7 @@
             Could not determine at this time
         {% endif %}
     </p>
-    <button class="button1">  Hide/Show information about {{snp}} </button>
+    <button class="button1">  Show/Hide information about {{snp}} </button>
     <br>
     <iframe class="iframe1" src="http://www.snpedia.com/index.php/{{snp}}" width="80%" height="500">http://www.snpedia.com/index.php/{{snp}} if browser does not support</iframe>
 
@@ -27,14 +27,14 @@
             function hideToggle(button, elem) {
                 $(button).toggle(
                   function () {
-                    $(elem).hide();
+                    $(elem).show();
                   },
                   function () {
-                    $(elem).show();
+                    $(elem).hide();
                   }
                 ); 
             }
-
+            $(".iframe1").hide();
             hideToggle(".button1", ".iframe1" );
         </script>
 {% endblock %}
