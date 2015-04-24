@@ -1,6 +1,8 @@
 {% extends 'api/base.html' %}
 
-{% block title %} Results {% endblock %}
+{% block title %} Results 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
+{% endblock %}
 
 {% block body %}
     <p>
@@ -16,6 +18,23 @@
             Could not determine at this time
         {% endif %}
     </p>
+    <button class="button1">  Hide/Show information about {{snp}} </button>
+    <br>
+    <iframe class="iframe1" src="http://www.snpedia.com/index.php/{{snp}}" width="80%" height="500">http://www.snpedia.com/index.php/{{snp}} if browser does not support</iframe>
 
-    <a href="http://www.snpedia.com/index.php/{{snp}}"> Click here for more information about {{snp}} </a>
+
+        <script type="text/javascript">
+            function hideToggle(button, elem) {
+                $(button).toggle(
+                  function () {
+                    $(elem).hide();
+                  },
+                  function () {
+                    $(elem).show();
+                  }
+                ); 
+            }
+
+            hideToggle(".button1", ".iframe1" );
+        </script>
 {% endblock %}
