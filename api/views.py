@@ -27,7 +27,6 @@ def callback(request):
         raise Http404
     client = _23AndMeClient()
     client.get_token(auth_code)
-    # # data['rs2395029']
     request.session['token'] = client.access_token
     request.session.set_expiry(0)
     return redirect('query_api')
