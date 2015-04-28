@@ -7,6 +7,9 @@ import responses
 import requests
 import json
 import  Client
+from Allele_Interpretation import carrier_status
+from api.models import DrugsAndSNP
+
 
 class ClientTestCase(TestCase):
     @responses.activate
@@ -182,7 +185,12 @@ class ClientTestCase(TestCase):
 
 class ViewsTestCase(TestCase):
     pass
-    def setup(self):
+    def setUp(self):
         pass
 
-
+class AlleleInterpretationTestCase(TestCase):
+    def setUp(self):
+        foo = DrugsAndSNP(drug = "flucloxacillin", snp = "rs2395029", allele = "HLA-B*5701", pairs = "GG,GT,TG" )
+        foo.save()
+    def test_carrier_status(self):
+        self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "DI"), "cannot determine" )

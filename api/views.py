@@ -8,6 +8,7 @@ from andMe.settings import CLIENT_ID, CALLBACK_URL
 from api.forms import QueryForm
 from django import forms
 from api.models import DrugsAndSNP
+from Allele_Interpretation import carrier_status
 
 def index(request):
     API_URL = "https://api.23andme.com/authorize"
@@ -63,6 +64,10 @@ def query_api(request):
             context_dict['nucleic_acid2'] = pairs[1]
             context_dict['profile_name'] = profile_name
             context_dict['snp'] = snp
+
+            status = carrier_status(drug=drug,pair=pairs)
+            context_dict['status'] = status
+
             return render(request, 'api/results_api.html', context_dict)
     else:
         form = QueryUserForm()
