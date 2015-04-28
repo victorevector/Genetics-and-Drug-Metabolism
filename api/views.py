@@ -59,6 +59,8 @@ def query_api(request):
             api_response = client.get_genotype(profile_id = profile_id, locations = snp )
             pairs = api_response[snp]
             context_dict['carrier_status'] = pairs
+            context_dict['nucleic_acid1'] = pairs[0]
+            context_dict['nucleic_acid2'] = pairs[1]
             context_dict['profile_name'] = profile_name
             context_dict['snp'] = snp
             return render(request, 'api/results_api.html', context_dict)
