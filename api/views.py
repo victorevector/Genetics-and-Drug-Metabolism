@@ -56,16 +56,16 @@ def query_api(request):
             profile_info = form.cleaned_data['profile_name'].split('$')
             profile_id, profile_name = profile_info[0], profile_info[1]
             drug = form.cleaned_data['drug']
-            snp = DrugsAndSNP.objects.get(drug = drug).snp
+            drug_object = DrugsAndSNP.objects.get(drug = drug)
+            snp = drug_object.snp
             api_response = client.get_genotype(profile_id = profile_id, locations = snp )
-            pairs = api_response[snp]
-            context_dict['carrier_status'] = pairs
-            context_dict['nucleic_acid1'] = pairs[0]
-            context_dict['nucleic_acid2'] = pairs[1]
+            users_pairs = api_response[snp]
+            context_dict['user_pair'] = users_pairs
+            context_dict['nucleic_acid1'] = users_pairs[0]
+            context_dict['nucleic_acid2'] = users_pairs[1]
             context_dict['profile_name'] = profile_name
-            context_dict['snp'] = snp
-
-            status = carrier_status(drug=drug,pair=pairs)
+            context_dict['drug_object'] = drug_object
+            status = carrier_status(drug=drug,pair=users_pairs)
             context_dict['status'] = status
 
             return render(request, 'api/results_api.html', context_dict)

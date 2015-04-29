@@ -6,29 +6,22 @@
 
 {% block body %}
     <p>
-        {% if carrier_status == 'GG' %}
-            {{profile_name}}  is a HLA-B*5701 homozygote carrier.
-        {% elif carrier_status == 'GT' %}
-            {{profile_name}}  is a HLA-B*5701 carrier.
-        {% elif carrier_status == 'TG' %}
-            {{profile_name}}  is a HLA-B*5701 carrier.
-        {% elif  carrier_status == 'TT' %}
-            {{profile_name}}  carries {{snp}}({{ nucleic_acid1 }};{{ nucleic_acid2 }}), a common variant,  and is not a HLA-B*5701 allele carrier.
-        {% else %}
-            Could not determine at this time
+        {{profile_name}} is a {{ drug_object.snp }}({{ nucleic_acid1 }};{{ nucleic_acid2 }}) carrier.
+        <br>
+        {% if status == 'cannot determine' %}
+            It cannot be determined whether {{profile_name}} is sensitive to {{ drug_object.drug }}
+        {% elif status == 'at risk' %}
+            {{profile_name}} has a higher probability of being sensitive to {{ drug_object.drug }}
+        {% elif status == 'common' %}
+            {{profile_name}} has a normal probability of being sensitive to {{ drug_object.drug }}
         {% endif %}
     </p>
-
-    <p>
-        {{status}}
-    </p>
-    
-    <button class="button1">  Show/Hide information about {{snp}} </button>
+    <button class="button1">  Show/Hide information about {{drug_object.snp}} </button>
     <br>
-    <iframe class="iframe1" src="http://www.snpedia.com/index.php/{{snp}}" width="80%" height="500">http://www.snpedia.com/index.php/{{snp}} if browser does not support</iframe>
+    <iframe class="iframe1" src="http://www.snpedia.com/index.php/{{drug_object.snp}}" width="80%" height="500">http://www.snpedia.com/index.php/{{drug_object.snp}} if browser does not support</iframe>
     <br>
-    <button class="button2">  Show/Hide information about {{snp}}({{ nucleic_acid1 }};{{ nucleic_acid2 }}) </button>
-    <iframe class="iframe2" src="http://www.snpedia.com/index.php/{{snp}}({{ nucleic_acid1 }};{{ nucleic_acid2 }})" width="80%" height="500">http://www.snpedia.com/index.php/{{snp}} if browser does not support</iframe>
+    <button class="button2">  Show/Hide information about {{drug_object.snp}}({{ nucleic_acid1 }};{{ nucleic_acid2 }}) </button>
+    <iframe class="iframe2" src="http://www.snpedia.com/index.php/{{drug_object.snp}}({{ nucleic_acid1 }};{{ nucleic_acid2 }})" width="80%" height="500">http://www.snpedia.com/index.php/{{snp}} if browser does not support</iframe>
     
 
         <script type="text/javascript">
