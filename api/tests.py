@@ -194,3 +194,7 @@ class AlleleInterpretationTestCase(TestCase):
         foo.save()
     def test_carrier_status(self):
         self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "DI"), "cannot determine" )
+        self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "GG"), "at risk" )
+        self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "GT"), "at risk" )
+        self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "TG"), "at risk" )
+        self.assertEqual(carrier_status(drug = "flucloxacillin", pair = "TT"), "common" )
